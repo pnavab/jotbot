@@ -9,6 +9,10 @@ html, body {
   margin-top: 20vh;
 }
 
-p {
-  font-size: 50px;
+.notes-container {
+  max-width: 80vw;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
 }

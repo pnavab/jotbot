@@ -1,0 +1,34 @@
+.note.new {
+  background-color: aquamarine;
+}
+
+textarea {
+  resize: none;
+  margin-bottom: 10px;
+  background-color: transparent;
+  border-width: 0;
+}
+
+textarea:focus {
+  outline: none;
+}
+
+.subject-area {
+  font-size: 1.5em;
+}
+
+.note-area {
+  font-size: 1.1em;
+}
+
+.save-button {
+  background-color: #e1e1e1;
+	border: none;
+	border-radius: 15px;
+	padding: 5px 10px 5px 10px;
+}
+
+.save-button:hover {
+  cursor: pointer;
+  background-color: #ededed;
+}
