@@ -9,15 +9,14 @@ const {
 
 
 router.post('/createNote', (req, res) => {
-  const { id, subject, text, date } = req.body;
+  const { subject, text, date } = req.body;
   
   const newNote = new Note({
-    id: id,
-    subject: subject || '',
+    subject: subject,
     text: text,
     date: date,
   });
-
+  console.debug('newNote is ', newNote);
   Note.create(newNote)
     .then(post => {
       return res.json(post);
@@ -36,7 +35,7 @@ router.get('/getNotes', (req, res) => {
 });
 
 router.post('/deleteNote', (req, res) => {
-  Note.deleteOne({ _id: req.body.id })
+  Note.deleteOne({ _id: req.body._id })
     .then(result => {
       if (result.n < 1) {
         res.sendStatus(NOT_FOUND);
@@ -49,4 +48,11 @@ router.post('/deleteNote', (req, res) => {
     });
 });
 
+router.post('/deleteAll', (req, res) => {
+  Note.deleteMany({ "__v": "0"})
+    .then(res.sendStatus(OK))
+    .catch(err => {
+      res.sendStatus(BAD_REQUEST)
+    });
+});
 module.exports = router;

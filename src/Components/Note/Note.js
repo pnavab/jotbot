@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Note.css';
 import { pencilSymbol, trashcanSymbol } from './SVG';
 
-export default function Note({ id, subject, text, date, handleDeleteNote }) {
+export default function Note({ subject, text, date, handleDeleteNote, id, setAllNotes }) {
   const [noteSubject, setNoteSubject] = useState(subject);
   const [noteText, setNoteText] = useState(text);
 

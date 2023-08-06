@@ -3,7 +3,7 @@ import './NotesList.css';
 import Note from '../Note/Note';
 import AddNote from '../AddNote/AddNote';
 
-export default function NotesList({ notes, handleDeleteNote, handleAddNote }) {
+export default function NotesList({ notes, handleDeleteNote, handleAddNote, allNotes, setAllNotes }) {
   return (
     <div className='notes-list'>
       {notes.map((note) => {
@@ -18,7 +18,10 @@ export default function NotesList({ notes, handleDeleteNote, handleAddNote }) {
           />
         )
       })}
-      <AddNote handleAddNote={ handleAddNote }></AddNote>
+      <AddNote
+        allNotes= { allNotes }
+        setAllNotes = { setAllNotes }
+      />
     </div>
   );
 }

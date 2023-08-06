@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import './AddNote.css';
+import { createNote } from '../../APIFunctions/Note';
 
-export default function AddNote({ handleAddNote }) {
+export default function AddNote({ allNotes, setAllNotes }) {
   const [noteSubject, setNoteSubject] = useState();
   const [noteText, setNoteText] = useState();
 
   async function handleSaveClick() {
-    handleAddNote({
-      subject: noteSubject,
-      text: noteText
-    });
-    setNoteSubject('');
-    setNoteText('');
-    document.getElementById('subject-area').value = '';
-    document.getElementById('note-area').value = '';
+    const response = await createNote(noteSubject, noteText);
+    console.log(response);
+    if(response.error) {
+      console.log('adding a note had an error when submitting');
+    } else {
+      setAllNotes([...allNotes, response]);
+    }
   }
 
   return (
