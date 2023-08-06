@@ -1,0 +1,12 @@
+{
+  "name": "jotbot-backend",
+  "version": "1.0.0",
+  "description": "contains all the APIs used by JotBot",
+  "main": "",
+  "scripts": {
+    "dev": "nodemon devServer.js",
+    "main_endpoints": "nodemon main_endpoints/server.js"
+  },
+  "author": "Pablo Nava Barrera",
+  "license": "MIT"
+}
