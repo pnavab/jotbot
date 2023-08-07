@@ -10,6 +10,17 @@
   justify-content: space-between;
 }
 
+.note > textarea {
+  resize: none;
+  margin-bottom: 10px;
+  background-color: transparent;
+  border-width: 0;
+}
+
+.note > textarea:focus {
+  outline: none;
+}
+
 .note-footer {
   display: flex;
   justify-content: space-between;

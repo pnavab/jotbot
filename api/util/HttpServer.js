@@ -57,7 +57,6 @@ class HttpServer {
     requireList.map((route) => {
       try {
         this.app.use(this.prefix + route.endpointName, require(route.filePath));
-        console.log("endpoints initialized");
       } catch (e) {
         logger.error(
           `error importing ${route.filePath} to handle: ${route.endpointName}:`,

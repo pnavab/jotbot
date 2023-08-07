@@ -1,24 +1,31 @@
 .note.new {
   background-color: aquamarine;
+  max-width: 50vw;
+  max-height: 30vw;
+  min-height: 20vw;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-textarea {
+.note.new > textarea {
   resize: none;
   margin-bottom: 10px;
   background-color: transparent;
   border-width: 0;
 }
 
-textarea:focus {
+.note.new > textarea:focus {
   outline: none;
 }
 
 .subject-area {
   font-size: 1.5em;
+  margin-bottom: 10px;
 }
 
 .note-area {
   font-size: 1.1em;
+  margin-bottom: 10px;
 }
 
 .save-button {

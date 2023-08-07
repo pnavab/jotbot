@@ -1,27 +1,22 @@
 import React from 'react';
 import './NotesList.css';
 import Note from '../Note/Note';
-import AddNote from '../AddNote/AddNote';
 
-export default function NotesList({ notes, handleDeleteNote, handleAddNote, allNotes, setAllNotes }) {
+export default function NotesList({ allNotes, handleDeleteNote }) {
   return (
     <div className='notes-list'>
-      {notes.map((note) => {
+      {allNotes.map((note) => {
         return (
           <Note
-            key={ note.id }
-            id={ note.id }
+            key={ note._id }
             subject={ note.subject }
             text={ note.text }
             date={ note.date }
             handleDeleteNote={ handleDeleteNote }
+            id={ note._id }
           />
         )
       })}
-      <AddNote
-        allNotes= { allNotes }
-        setAllNotes = { setAllNotes }
-      />
     </div>
   );
 }

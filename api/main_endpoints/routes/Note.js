@@ -16,7 +16,6 @@ router.post('/createNote', (req, res) => {
     text: text,
     date: date,
   });
-  console.debug('newNote is ', newNote);
   Note.create(newNote)
     .then(post => {
       return res.json(post);

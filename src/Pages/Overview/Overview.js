@@ -4,14 +4,16 @@ import { Col, Row } from 'reactstrap';
 import { getAllNotes, createNote, deleteNote } from '../../APIFunctions/Note';
 import Note from '../../Components/Note/Note';
 import NotesList from '../../Components/NotesList/NotesList';
-import './Home.css';
+import './Overview.css';
+import AddNote from '../../Components/AddNote/AddNote';
 
-export default function Home(props) {
+export default function Overview(props) {
   const [allNotes, setAllNotes] = useState([]);
   const [noteSubject, setNoteSubject] = useState('');
   const [noteText, setNoteText] = useState('');
   const [loadingNotes, setLoadingNotes] = useState(true);
   const [errorGettingNotes, setErrorGettingNotes] = useState();
+  const [errorSubmittingNote, setErrorSubmittingNote] = useState();
 
   async function getAllUserNotes() {
     const notesFromDB = await getAllNotes();
@@ -33,11 +35,11 @@ export default function Home(props) {
     }
   }
 
-  async function addNote(subject, test) {
+  async function handleAddNote(subject, test) {
     const response = await createNote(subject, test);
-    console.log(response);
     if(response.error) {
       console.log(response);
+      setErrorSubmittingNote(true);
     } else {
       setAllNotes([...allNotes, response.responseData]);
       document.getElementById('subject-area').value = '';
@@ -57,46 +59,12 @@ export default function Home(props) {
         {errorGettingNotes && (
           <p>Error retrieving notes from database</p>
         )}
+        <h1>Overview</h1>
         {!loadingNotes && !errorGettingNotes && (
-          <div className='notes-list'>
-          {allNotes.map((note, index) => {
-            return (
-              <Note
-                key={ index }
-                subject={ note.subject }
-                text={ note.text }
-                date={ note.date }
-                handleDeleteNote={ handleDeleteNote }
-                id={ note._id }
-                setAllNotes={ setAllNotes }
-              />
-            )
-          })}
-          <div className='note new'>
-            <textarea
-              className='subject-area'
-              id='subject-area'
-              rows='1'
-              cols='10'
-              placeholder='Subject'
-              onChange={e => {setNoteSubject(e.target.value)}}
-              >
-            </textarea>
-            <textarea
-              className='note-area'
-              id='note-area'
-              rows='8'
-              cols='10'
-              placeholder='Click here to add note'
-              onChange={e => {setNoteText(e.target.value)}}
-            >
-            </textarea>
-            <div className='note-footer'>
-              <small>200 Remaining</small>
-              <button className='save-button'onClick={() => addNote(noteSubject, noteText)}>Save</button>
-            </div>
-          </div>
-        </div>
+          <NotesList
+            allNotes={ allNotes }
+            handleDeleteNote={ handleDeleteNote }
+          />
         )}
       </div>
     </> 
