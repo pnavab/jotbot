@@ -6,7 +6,8 @@ import AddNewNote from "./Pages/AddNewNote/AddNewNote";
 
 export default function Routing() {
   const routes = [
-    { Component: Overview, path: '/' }
+    { Component: Overview, path: '/' },
+    { Component: AddNewNote, path: '/create-note'}
   ];
 
   return (

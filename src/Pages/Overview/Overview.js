@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Row } from 'reactstrap';
 
 import { getAllNotes, createNote, deleteNote } from '../../APIFunctions/Note';
-import Note from '../../Components/Note/Note';
 import NotesList from '../../Components/NotesList/NotesList';
 import './Overview.css';
-import AddNote from '../../Components/AddNote/AddNote';
+import { useNavigate } from 'react-router-dom';
 
 export default function Overview(props) {
   const [allNotes, setAllNotes] = useState([]);
-  const [noteSubject, setNoteSubject] = useState('');
-  const [noteText, setNoteText] = useState('');
   const [loadingNotes, setLoadingNotes] = useState(true);
   const [errorGettingNotes, setErrorGettingNotes] = useState();
   const [errorSubmittingNote, setErrorSubmittingNote] = useState();
@@ -35,20 +31,6 @@ export default function Overview(props) {
     }
   }
 
-  async function handleAddNote(subject, test) {
-    const response = await createNote(subject, test);
-    if(response.error) {
-      console.log(response);
-      setErrorSubmittingNote(true);
-    } else {
-      setAllNotes([...allNotes, response.responseData]);
-      document.getElementById('subject-area').value = '';
-      document.getElementById('note-area').value = '';
-      setNoteSubject('');
-      setNoteText('');
-    }
-  }
-
   useEffect(() => {
     getAllUserNotes();
   }, []);
@@ -60,6 +42,12 @@ export default function Overview(props) {
           <p>Error retrieving notes from database</p>
         )}
         <h1>Overview</h1>
+        {allNotes.length <= 0 && (
+          <div className='note-not-found'>
+            <p>No notes found.</p>
+            <a href='/create-note'>Click here to get started.</a>
+          </div>
+        )}
         {!loadingNotes && !errorGettingNotes && (
           <NotesList
             allNotes={ allNotes }

@@ -1,5 +1,4 @@
-console.log(process.cwd());
-require('dotenv').config({ path: '.config.env' });
+const { process } = require('../../env.js');
 const { Configuration, OpenAIApi } = require('openai');
 const express = require('express');
 const router = express.Router();
@@ -11,7 +10,6 @@ const {
 } = require('../../util/constants').STATUS_CODES;
 
 const apiKey = process.env.OPENAI_API_KEY;
-console.log(apiKey);
 const configuration = new Configuration({
   apiKey: apiKey
 });
@@ -26,12 +24,11 @@ router.post('/generateResponse', async (req, res) => {
       max_tokens: maxTokens || 20
     })
     const generatedResponse = response.data.choices[0].text.trim();
-    res.json(generatedResponse);
+    res.json({response: generatedResponse});
   } catch(err) {
     console.log(err);
     res.sendStatus(BAD_REQUEST);
   }
 })
-
 
 module.exports = router;
