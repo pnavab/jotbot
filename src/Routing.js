@@ -13,6 +13,7 @@ export default function Routing() {
   return (
     <Router>
       <Routes>
+        <Route path='/' element={<Overview />} />
         <Route path='/overview' element={<Overview />} />
         <Route path='/create-note' element={<AddNewNote />} />
       </Routes>
