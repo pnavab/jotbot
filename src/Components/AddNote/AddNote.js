@@ -3,6 +3,7 @@ import './AddNote.css';
 import { useNavigate } from 'react-router-dom';
 import { createNote } from '../../APIFunctions/Note';
 import { Row } from 'reactstrap';
+import { getOpenAiResponse } from '../../APIFunctions/OpenAi';
 
 export default function AddNote(props) {
   const [noteSubject, setNoteSubject] = useState('');
@@ -45,6 +46,29 @@ export default function AddNote(props) {
     setCharCount(e.target.value.length);
   }
 
+  async function handlePromptChange(e) {
+    setAiPrompt(e.target.value);
+  }
+
+  
+  async function handleAskPrompt(prompt) {
+    const response = await getOpenAiResponse(prompt);
+    console.log("got responsedata ", response.responseData);
+    if(response.error) {
+      console.log(response);
+    } else {
+      const noteArea = document.getElementById('note-area');
+      noteArea.value = noteArea.value + '\n' + response.responseData.response;
+    }
+  }
+
+  async function maybeSubmitOnKeyPress(e) {
+    if ((e.key === 'Enter')) {
+      e.preventDefault();
+      handleAskPrompt(aiPrompt);
+    }
+  }
+
   return (
     <div className='new-note'>
       <textarea
@@ -78,10 +102,15 @@ export default function AddNote(props) {
           rows='4'
           cols='10'
           placeholder='Ask chat gpt here'
+          onChange={e => {handlePromptChange(e)}}
+          onKeyDown={(e) => maybeSubmitOnKeyPress(e)}
         >
         </textarea>
-        <button className='ask-ai-button' onClick={() => handleAddNote(noteSubject, noteText)}>
-          Save
+        <button
+          className='ask-ai-button'
+          onClick={() => handleAskPrompt(aiPrompt)}
+        >
+          Ask
         </button>
       </Row>
       <div className='note-footer'>

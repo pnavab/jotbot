@@ -11,7 +11,7 @@
   margin-right: auto;
 }
 
-.new-note > textarea {
+.new-note > textarea, .prompt-area {
   resize: none;
   margin-bottom: 10px;
   background-color: transparent;
