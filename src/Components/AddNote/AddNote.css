@@ -1,7 +1,8 @@
 .new-note {
   display: flex;
   flex-direction: column;
-  background-color: aquamarine;
+  justify-content: space-between;
+  background-color: rgb(195, 201, 140);
   padding: 1em;
   border-radius: 10px;
   max-width: 50vw;
@@ -11,14 +12,23 @@
   margin-right: auto;
 }
 
-.new-note > textarea, .prompt-area {
+.new-note > textarea {
   resize: none;
   margin-bottom: 10px;
   background-color: transparent;
   border-width: 0;
 }
 
-.new-note > textarea:focus {
+.prompt-area {
+  resize: none;
+  margin-bottom: 10px;
+  background-color: #e9e8b4;
+  border-width: 0;
+  border-radius: 5px;
+}
+
+.new-note > textarea:focus,
+.prompt-area {
   outline: none;
 }
 
@@ -32,14 +42,41 @@
   margin-bottom: 10px;
 }
 
+.ai-prompt-row {
+  display: grid;
+  gap: 1px;
+}
+
+/* Style the prompt-area to take most of the width */
+.prompt-area {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.ask-ai-button {
+  padding: 20px;
+  width: 5%;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.ask-ai-button:hover {
+  transform: scale(1.05);
+}
+
 .save-note-button {
   background-color: #e1e1e1;
 	border: none;
 	border-radius: 15px;
 	padding: 5px 10px 5px 10px;
+  height: 30px;
 }
 
-.save-note-button:hover {
+.save-note-button:hover,
+.ask-ai-button:hover {
   cursor: pointer;
   background-color: #ededed;
 }

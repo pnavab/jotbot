@@ -52,13 +52,14 @@ export default function AddNote(props) {
 
   
   async function handleAskPrompt(prompt) {
-    const response = await getOpenAiResponse(prompt);
-    console.log("got responsedata ", response.responseData);
-    if(response.error) {
-      console.log(response);
-    } else {
-      const noteArea = document.getElementById('note-area');
-      noteArea.value = noteArea.value + '\n' + response.responseData.response;
+    if(prompt.length > 0) {
+      const response = await getOpenAiResponse(prompt);
+      if(response.error) {
+        console.log(response);
+      } else {
+        const noteArea = document.getElementById('note-area');
+        noteArea.value = noteArea.value + ' ' + response.responseData.response;
+      }
     }
   }
 
@@ -95,7 +96,7 @@ export default function AddNote(props) {
       <div className='gpt-response-area'>
 
       </div>
-      <Row>
+      <Row className='ai-prompt-row'>
         <textarea
           className='prompt-area'
           id='prompt-area'
